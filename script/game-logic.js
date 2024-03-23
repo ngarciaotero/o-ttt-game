@@ -1,3 +1,15 @@
+const player = (function () {
+  const createPlayer = (mark) => {
+    const playerMark = mark;
+
+    const getMark = () => playerMark;
+
+    return { getMark };
+  };
+
+  return createPlayer;
+})();
+
 const gameBoard = (function () {
   let board = [];
   const createGameBoard = () => {
