@@ -33,10 +33,16 @@ const gameBoard = (function () {
     createGameBoard();
   };
 
+  const setCell = (row, column, mark) => {
+    const targetCell = board[row][column];
+    if (targetCell === "") {
+      board[row][column] = mark;
+      return true;
+    }
+    return false;
+  };
+
   createGameBoard();
-  return { getGameBoard, resetGameBoard };
+  return { getGameBoard, resetGameBoard, setCell };
 })();
 
-const currentGameBoard = gameBoard;
-const testing = currentGameBoard.getGameBoard();
-console.log(testing);
