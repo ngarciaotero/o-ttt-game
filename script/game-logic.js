@@ -1,14 +1,10 @@
-const player = (function () {
-  const createPlayer = (mark) => {
-    const playerMark = mark;
+const createPlayer = (mark) => {
+  let playerMark = mark;
 
-    const getMark = () => playerMark;
+  const getMark = () => playerMark;
 
-    return { getMark };
-  };
-
-  return createPlayer;
-})();
+  return { getMark };
+};
 
 const gameBoard = (function () {
   let board = [];
