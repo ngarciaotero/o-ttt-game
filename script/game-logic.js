@@ -111,23 +111,18 @@ const game = (function () {
 
   const makeMove = (row, column) => {
     const success = board.setCell(row, column, currentPlayer.getMark());
-
-    if (!success) {
-      console.error("Failed to make move. Please try again.");
-      return;
-    }
-
     if (success) {
       addPlayerMove(getPlayerMoves(currentPlayer), row, column);
       increaseTurnCount();
       if (winnerExists(getPlayerMoves(currentPlayer))) {
         resetGame();
-      }
-      if (tieExists()) {
+      } else if (tieExists()) {
         resetGame();
+      } else {
+        switchPlayer();
       }
-      switchPlayer();
     }
+    return success;
   };
 
   const initializeBoard = () => {
@@ -136,10 +131,6 @@ const game = (function () {
 
   const switchPlayer = () => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
-  };
-
-  const gameState = () => {
-    console.log(board.getGameBoard());
   };
 
   const increaseTurnCount = () => {
@@ -155,10 +146,7 @@ const game = (function () {
   };
 
   const tieExists = () => {
-    if (turn === 9) {
-      return true;
-    }
-    return false;
+    return turn === 9;
   };
 
   const winnerExists = (playerMoves) => {
@@ -182,5 +170,5 @@ const game = (function () {
     return false;
   };
 
-  return { startGame, makeMove, gameState };
+  return { startGame, makeMove };
 })();
