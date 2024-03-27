@@ -87,3 +87,100 @@ const gameBoard = (function () {
   return { getGameBoard, resetGameBoard, setCell, getWinningCombinations };
 })();
 
+const game = (function () {
+  let currentPlayer;
+  let board;
+  let turn = 0;
+  let player1, player2;
+  let player1Moves = [];
+  let player2Moves = [];
+
+  const startGame = (p1, p2) => {
+    player1 = p1;
+    player2 = p2;
+    initializeBoard();
+    currentPlayer = player1;
+  };
+
+  const resetGame = () => {
+    board.resetGameBoard();
+    turn = 0;
+    player1Moves = [];
+    player2Moves = [];
+  };
+
+  const makeMove = (row, column) => {
+    const success = board.setCell(row, column, currentPlayer.getMark());
+
+    if (!success) {
+      console.error("Failed to make move. Please try again.");
+      return;
+    }
+
+    if (success) {
+      addPlayerMove(getPlayerMoves(currentPlayer), row, column);
+      increaseTurnCount();
+      if (winnerExists(getPlayerMoves(currentPlayer))) {
+        resetGame();
+      }
+      if (tieExists()) {
+        resetGame();
+      }
+      switchPlayer();
+    }
+  };
+
+  const initializeBoard = () => {
+    board = gameBoard;
+  };
+
+  const switchPlayer = () => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+  };
+
+  const gameState = () => {
+    console.log(board.getGameBoard());
+  };
+
+  const increaseTurnCount = () => {
+    turn++;
+  };
+
+  const addPlayerMove = (playerMoves, row, column) => {
+    playerMoves.push([row, column]);
+  };
+
+  const getPlayerMoves = (player) => {
+    return player === player1 ? player1Moves : player2Moves;
+  };
+
+  const tieExists = () => {
+    if (turn === 9) {
+      return true;
+    }
+    return false;
+  };
+
+  const winnerExists = (playerMoves) => {
+    const winningCombinations = board.getWinningCombinations();
+
+    for (const combination of winningCombinations) {
+      let isWinner = true;
+      for (const [row, column] of combination) {
+        if (
+          !playerMoves.some(
+            ([playerRow, playerColumn]) =>
+              playerRow === row && playerColumn === column
+          )
+        ) {
+          isWinner = false;
+          break;
+        }
+      }
+      if (isWinner) return true;
+    }
+    return false;
+  };
+
+  return { startGame, makeMove, gameState };
+})();
