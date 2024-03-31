@@ -172,3 +172,33 @@ const game = (function () {
 
   return { startGame, makeMove };
 })();
+
+const displayController = (function () {
+  const board = document.querySelector(".game-board");
+  const cells = document.querySelectorAll(".cell");
+
+  const renderBoard = () => {
+    cells.forEach((cell, index) => {
+      cell.textContent =
+        gameBoard.getGameBoard()[getRowIndex(index)][getColumnIndex(index)];
+    });
+  };
+
+  const handleUserMove = (index) => {
+    const successfulMove = game.makeMove(
+      getRowIndex(index),
+      getColumnIndex(index)
+    );
+    if (successfulMove) {
+      renderBoard();
+    }
+  };
+
+  const getRowIndex = (index) => Math.floor(index / 3);
+
+  const getColumnIndex = (index) => index % 3;
+
+  cells.forEach((cell, index) => {
+    cell.addEventListener("click", () => handleUserMove(index));
+  });
+})();
