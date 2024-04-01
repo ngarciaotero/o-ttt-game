@@ -201,4 +201,62 @@ const displayController = (function () {
   cells.forEach((cell, index) => {
     cell.addEventListener("click", () => handleUserMove(index));
   });
+
+  function addXMarkOptions() {
+    const xMarksContainer = document.querySelector(".x-marks-container");
+
+    const xMarkOptions = [
+      { imgAlt: "letter x", imgScr: "imgs/x-marks/letter-x.png" },
+      { imgAlt: "windmill", imgScr: "imgs/x-marks/windmill.png" },
+      { imgAlt: "skull cross bones", imgScr: "imgs/x-marks/bone.png" },
+      { imgAlt: "satellite", imgScr: "imgs/x-marks/satellite.png" },
+      { imgAlt: "dna", imgScr: "imgs/x-marks/dna.png" },
+    ];
+
+    xMarkOptions.forEach((mark) => {
+      const imgX = document.createElement("img");
+      imgX.classList.add("mark-item");
+      imgX.src = mark.imgScr;
+      imgX.alt = mark.imgAlt;
+
+      imgX.addEventListener("click", function () {
+        document.querySelectorAll(".mark-item").forEach((item) => {
+          item.classList.remove("selected");
+        });
+        imgX.classList.add("selected");
+      });
+      xMarksContainer.appendChild(imgX);
+    });
+  }
+
+  function addOMarkOptions() {
+    const oMarksContainer = document.querySelector(".o-marks-container");
+
+    const oMarkOptions = [
+      { imgAlt: "letter o", imgScr: "imgs/o-marks/letter-o.png" },
+      { imgAlt: "compass", imgScr: "imgs/o-marks/compass.png" },
+      { imgAlt: "target", imgScr: "imgs/o-marks/target.png" },
+      { imgAlt: "orbit", imgScr: "imgs/o-marks/orbit.png" },
+      { imgAlt: "turntable", imgScr: "imgs/o-marks/turntable.png" },
+    ];
+
+    oMarkOptions.forEach((mark) => {
+      const imgO = document.createElement("img");
+      imgO.classList.add("mark-item");
+      imgO.src = mark.imgScr;
+      imgO.alt = mark.imgAlt;
+
+      imgO.addEventListener("click", function () {
+        document.querySelectorAll(".mark-item").forEach((item) => {
+          item.classList.remove("selected");
+        });
+        imgO.classList.add("selected");
+      });
+
+      oMarksContainer.appendChild(imgO);
+    });
+  }
+
+  window.addEventListener("load", addXMarkOptions);
+  window.addEventListener("load", addOMarkOptions);
 })();
