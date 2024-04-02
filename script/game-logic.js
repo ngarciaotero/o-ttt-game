@@ -206,24 +206,41 @@ const displayController = (function () {
     const xMarksContainer = document.querySelector(".x-marks-container");
 
     const xMarkOptions = [
-      { imgAlt: "letter x", imgScr: "imgs/x-marks/letter-x.png" },
-      { imgAlt: "windmill", imgScr: "imgs/x-marks/windmill.png" },
-      { imgAlt: "skull cross bones", imgScr: "imgs/x-marks/bone.png" },
-      { imgAlt: "satellite", imgScr: "imgs/x-marks/satellite.png" },
-      { imgAlt: "dna", imgScr: "imgs/x-marks/dna.png" },
+      {
+        imgAlt: "letter x",
+        imgScr: "imgs/x-marks/letter-x.png",
+        area: "letter-x",
+      },
+      {
+        imgAlt: "windmill",
+        imgScr: "imgs/x-marks/windmill.png",
+        area: "windmill",
+      },
+      {
+        imgAlt: "skull cross bones",
+        imgScr: "imgs/x-marks/bone.png",
+        area: "skull",
+      },
+      {
+        imgAlt: "satellite",
+        imgScr: "imgs/x-marks/satellite.png",
+        area: "satellite",
+      },
+      { imgAlt: "dna", imgScr: "imgs/x-marks/dna.png", area: "dna" },
     ];
 
     xMarkOptions.forEach((mark) => {
       const imgX = document.createElement("img");
       imgX.classList.add("mark-item");
+      imgX.classList.add(mark.area);
       imgX.src = mark.imgScr;
       imgX.alt = mark.imgAlt;
 
       imgX.addEventListener("click", function () {
         document.querySelectorAll(".mark-item").forEach((item) => {
-          item.classList.remove("selected");
+          item.classList.remove("selected-x");
         });
-        imgX.classList.add("selected");
+        imgX.classList.add("selected-x");
       });
       xMarksContainer.appendChild(imgX);
     });
@@ -233,24 +250,37 @@ const displayController = (function () {
     const oMarksContainer = document.querySelector(".o-marks-container");
 
     const oMarkOptions = [
-      { imgAlt: "letter o", imgScr: "imgs/o-marks/letter-o.png" },
-      { imgAlt: "compass", imgScr: "imgs/o-marks/compass.png" },
-      { imgAlt: "target", imgScr: "imgs/o-marks/target.png" },
-      { imgAlt: "orbit", imgScr: "imgs/o-marks/orbit.png" },
-      { imgAlt: "turntable", imgScr: "imgs/o-marks/turntable.png" },
+      {
+        imgAlt: "letter o",
+        imgScr: "imgs/o-marks/letter-o.png",
+        area: "letter-o",
+      },
+      {
+        imgAlt: "compass",
+        imgScr: "imgs/o-marks/compass.png",
+        area: "compass",
+      },
+      { imgAlt: "target", imgScr: "imgs/o-marks/target.png", area: "target" },
+      { imgAlt: "orbit", imgScr: "imgs/o-marks/orbit.png", area: "orbit" },
+      {
+        imgAlt: "turntable",
+        imgScr: "imgs/o-marks/turntable.png",
+        area: "turntable",
+      },
     ];
 
     oMarkOptions.forEach((mark) => {
       const imgO = document.createElement("img");
       imgO.classList.add("mark-item");
+      imgO.classList.add(mark.area);
       imgO.src = mark.imgScr;
       imgO.alt = mark.imgAlt;
 
       imgO.addEventListener("click", function () {
         document.querySelectorAll(".mark-item").forEach((item) => {
-          item.classList.remove("selected");
+          item.classList.remove("selected-o");
         });
-        imgO.classList.add("selected");
+        imgO.classList.add("selected-o");
       });
 
       oMarksContainer.appendChild(imgO);

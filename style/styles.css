@@ -11,3 +11,77 @@
 .cell {
   border: 1px solid black;
 }
+
+.x-marks-container,
+.o-marks-container {
+  display: grid;
+  justify-items: center;
+}
+
+.x-marks-container {
+  grid-template-areas: ". letter-x ." "windmill skull satellite" ". dna .";
+}
+
+.letter-x {
+  grid-area: letter-x;
+}
+
+.windmill {
+  grid-area: windmill;
+}
+
+.skull {
+  grid-area: skull;
+}
+
+.satellite {
+  grid-area: satellite;
+}
+
+.dna {
+  grid-area: dna;
+}
+
+.o-marks-container {
+  grid-template-areas: ". letter-o ." "compass target orbit" ". turntable .";
+}
+
+.letter-o {
+  grid-area: letter-o;
+}
+
+.compass {
+  grid-area: compass;
+}
+
+.target {
+  grid-area: target;
+}
+
+.orbit {
+  grid-area: orbit;
+}
+
+.turntable {
+  grid-area: turntable;
+}
+
+.mark-item {
+  cursor: pointer;
+  max-width: 60%;
+  max-height: 60%;
+  border: 3px solid rgba(255, 255, 255, 0);
+  border-radius: 10px;
+}
+
+.mark-item:hover {
+  border-color: rgb(250, 250, 120);
+  transform: scale(1.2);
+  transition: transform 0.1s ease;
+}
+
+.selected-x,
+.selected-o {
+  border-color: rgb(250, 250, 120);
+  transition: transform 0.1s ease;
+}
