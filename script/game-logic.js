@@ -202,91 +202,112 @@ const displayController = (function () {
     cell.addEventListener("click", () => handleUserMove(index));
   });
 
-  function addXMarkOptions() {
-    const xMarksContainer = document.querySelector(".x-marks-container");
-
-    const xMarkOptions = [
-      {
-        imgAlt: "letter x",
-        imgScr: "imgs/x-marks/letter-x.png",
-        area: "letter-x",
-      },
-      {
-        imgAlt: "windmill",
-        imgScr: "imgs/x-marks/windmill.png",
-        area: "windmill",
-      },
-      {
-        imgAlt: "skull cross bones",
-        imgScr: "imgs/x-marks/bone.png",
-        area: "skull",
-      },
-      {
-        imgAlt: "satellite",
-        imgScr: "imgs/x-marks/satellite.png",
-        area: "satellite",
-      },
-      { imgAlt: "dna", imgScr: "imgs/x-marks/dna.png", area: "dna" },
-    ];
-
-    xMarkOptions.forEach((mark) => {
-      const imgX = document.createElement("img");
-      imgX.classList.add("mark-item");
-      imgX.classList.add(mark.area);
-      imgX.src = mark.imgScr;
-      imgX.alt = mark.imgAlt;
-
-      imgX.addEventListener("click", function () {
-        document.querySelectorAll(".mark-item").forEach((item) => {
-          item.classList.remove("selected-x");
-        });
-        imgX.classList.add("selected-x");
+  function addMarkOptions(
+    markOptions,
+    markContainerSelector,
+    profileContainerSelector,
+    selectedClass,
+    profileImgClass
+  ) {
+    const marksContainer = document.querySelector(markContainerSelector);
+    const profileContainer = document.querySelector(profileContainerSelector);
+    markOptions.forEach((mark) => {
+      const img = createImg(mark);
+      img.addEventListener("click", function () {
+        addSelectedClass(img, selectedClass);
+        addMarkToProfile(mark.imgSrc, profileContainer, profileImgClass);
       });
-      xMarksContainer.appendChild(imgX);
+      marksContainer.appendChild(img);
     });
   }
 
-  function addOMarkOptions() {
-    const oMarksContainer = document.querySelector(".o-marks-container");
-
-    const oMarkOptions = [
-      {
-        imgAlt: "letter o",
-        imgScr: "imgs/o-marks/letter-o.png",
-        area: "letter-o",
-      },
-      {
-        imgAlt: "compass",
-        imgScr: "imgs/o-marks/compass.png",
-        area: "compass",
-      },
-      { imgAlt: "target", imgScr: "imgs/o-marks/target.png", area: "target" },
-      { imgAlt: "orbit", imgScr: "imgs/o-marks/orbit.png", area: "orbit" },
-      {
-        imgAlt: "turntable",
-        imgScr: "imgs/o-marks/turntable.png",
-        area: "turntable",
-      },
-    ];
-
-    oMarkOptions.forEach((mark) => {
-      const imgO = document.createElement("img");
-      imgO.classList.add("mark-item");
-      imgO.classList.add(mark.area);
-      imgO.src = mark.imgScr;
-      imgO.alt = mark.imgAlt;
-
-      imgO.addEventListener("click", function () {
-        document.querySelectorAll(".mark-item").forEach((item) => {
-          item.classList.remove("selected-o");
-        });
-        imgO.classList.add("selected-o");
-      });
-
-      oMarksContainer.appendChild(imgO);
+  function addSelectedClass(imgElement, selectedClass) {
+    document.querySelectorAll(".mark-item").forEach((item) => {
+      item.classList.remove(selectedClass);
     });
+    imgElement.classList.add(selectedClass);
   }
 
-  window.addEventListener("load", addXMarkOptions);
-  window.addEventListener("load", addOMarkOptions);
+  function addMarkToProfile(imgSrc, profileContainer, profileImgClass) {
+    const previousImgProfile = profileContainer.querySelector(
+      `.${profileImgClass}`
+    );
+    if (previousImgProfile) {
+      profileContainer.removeChild(previousImgProfile);
+    }
+    const imgProfile = document.createElement("img");
+    imgProfile.classList.add(profileImgClass);
+    imgProfile.src = imgSrc;
+    profileContainer.appendChild(imgProfile);
+  }
+
+  function createImg(mark) {
+    const imgName = document.createElement("img");
+    imgName.classList.add("mark-item");
+    imgName.classList.add(mark.area);
+    imgName.src = mark.imgSrc;
+    imgName.alt = mark.imgAlt;
+    return imgName;
+  }
+
+  const xMarkOptions = [
+    {
+      imgAlt: "letter x",
+      imgSrc: "imgs/x-marks/letter-x.png",
+      area: "letter-x",
+    },
+    {
+      imgAlt: "windmill",
+      imgSrc: "imgs/x-marks/windmill.png",
+      area: "windmill",
+    },
+    {
+      imgAlt: "skull cross bones",
+      imgSrc: "imgs/x-marks/bone.png",
+      area: "skull",
+    },
+    {
+      imgAlt: "satellite",
+      imgSrc: "imgs/x-marks/satellite.png",
+      area: "satellite",
+    },
+    { imgAlt: "dna", imgSrc: "imgs/x-marks/dna.png", area: "dna" },
+  ];
+
+  const oMarkOptions = [
+    {
+      imgAlt: "letter o",
+      imgSrc: "imgs/o-marks/letter-o.png",
+      area: "letter-o",
+    },
+    {
+      imgAlt: "compass",
+      imgSrc: "imgs/o-marks/compass.png",
+      area: "compass",
+    },
+    { imgAlt: "target", imgSrc: "imgs/o-marks/target.png", area: "target" },
+    { imgAlt: "orbit", imgSrc: "imgs/o-marks/orbit.png", area: "orbit" },
+    {
+      imgAlt: "turntable",
+      imgSrc: "imgs/o-marks/turntable.png",
+      area: "turntable",
+    },
+  ];
+
+  window.addEventListener("load", function () {
+    addMarkOptions(
+      xMarkOptions,
+      ".x-marks-container",
+      ".profile-x-container",
+      "selected-x",
+      "x-profile-img"
+    );
+    addMarkOptions(
+      oMarkOptions,
+      ".o-marks-container",
+      ".profile-o-container",
+      "selected-o",
+      "o-profile-img"
+    );
+  });
 })();
