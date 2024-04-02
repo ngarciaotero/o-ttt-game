@@ -12,6 +12,26 @@
   border: 1px solid black;
 }
 
+.player-xcard,
+.player-ocard {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-x-container,
+.profile-o-container {
+  align-self: center;
+  border-radius: 100px;
+  border: 2px solid gray;
+  padding: 15%;
+}
+
+.x-profile-img,
+.o-profile-img {
+  max-width: 30%;
+  max-width: 30%;
+}
+
 .x-marks-container,
 .o-marks-container {
   display: grid;
