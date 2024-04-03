@@ -1,35 +1,69 @@
+body {
+  display: flex;
+  height: 100vh;
+}
+
 .layout-container {
   display: flex;
+  align-self: center;
+  gap: 30px;
 }
 
 .game-board {
   display: grid;
+  flex-grow: 2;
   grid-template-columns: repeat(3, minmax(100px, 1fr));
   grid-template-rows: repeat(3, minmax(100px, 1fr));
 }
 
 .cell {
   border: 1px solid black;
+  border-radius: 10px;
 }
 
 .player-xcard,
 .player-ocard {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 300px;
+  padding: 20px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  gap: 20px;
 }
 
 .profile-x-container,
 .profile-o-container {
+  display: flex;
+  justify-content: center;
   align-self: center;
   border-radius: 100px;
   border: 2px solid gray;
-  padding: 15%;
+  width: 100px;
+  height: 100px;
 }
 
 .x-profile-img,
 .o-profile-img {
-  max-width: 30%;
-  max-width: 30%;
+  align-self: center;
+  max-width: 5%;
+  max-width: 50%;
+}
+
+#p1name,
+#p2name {
+  border: none;
+  border-bottom: 2px solid gray;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.create-player-btn {
+  align-self: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 15px;
 }
 
 .x-marks-container,
