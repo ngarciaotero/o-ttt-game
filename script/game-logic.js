@@ -310,4 +310,81 @@ const displayController = (function () {
       "o-profile-img"
     );
   });
+
+  function checkInput(playerNameInput) {
+    const player = playerNameInput.value;
+    if (!player) {
+      playerNameInput.classList.add("input-error");
+    } else {
+      playerNameInput.classList.remove("input-error");
+    }
+  }
+
+  function checkMarkSelection(selectedMark, selectMarkHeader) {
+    if (!selectedMark) {
+      selectMarkHeader.classList.add("select-error");
+    } else {
+      selectMarkHeader.classList.remove("select-error");
+    }
+  }
+
+  function enableCreatePlayerBtn(
+    playerNameInput,
+    selectedMark,
+    createPlayerBtn
+  ) {
+    if (playerNameInput.value && selectedMark) {
+      createPlayerBtn.removeAttribute("disabled");
+    } else {
+      createPlayerBtn.setAttribute("disabled", true);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const xMarksContainer = document.querySelector(".x-marks-container");
+    const pXNameInput = document.querySelector(".x-name");
+    const selectXMarkHeader = document.querySelector(".x-select-mark-header");
+    const createPlayerXBtn = document.querySelector(".x-create-player-btn");
+
+    const oMarksContainer = document.querySelector(".o-marks-container");
+    const pONameInput = document.querySelector(".o-name");
+    const selectOMarkHeader = document.querySelector(".o-select-mark-header");
+    const createPlayerOBtn = document.querySelector(".o-create-player-btn");
+
+    function handleInputEvent(playerInput, selectedClass, createPlayerBtn) {
+      playerInput.addEventListener("input", function () {
+        const selectedMark = document.querySelector(selectedClass);
+        checkInput(playerInput);
+        enableCreatePlayerBtn(playerInput, selectedMark, createPlayerBtn);
+      });
+    }
+
+    handleInputEvent(pXNameInput, ".selected-x", createPlayerXBtn);
+    handleInputEvent(pONameInput, ".selected-o", createPlayerOBtn);
+
+    xMarksContainer.addEventListener("click", function () {
+      checkMarkSelection(
+        document.querySelector(".selected-x"),
+        selectXMarkHeader
+      );
+      enableCreatePlayerBtn(
+        pXNameInput,
+        document.querySelector(".selected-x"),
+        createPlayerXBtn
+      );
+    });
+
+    oMarksContainer.addEventListener("click", function () {
+      const selectedOMark = document.querySelector(".selected-o");
+      checkMarkSelection(
+        document.querySelector(".selected-o"),
+        selectOMarkHeader
+      );
+      enableCreatePlayerBtn(
+        pONameInput,
+        document.querySelector(".selected-o"),
+        createPlayerOBtn
+      );
+    });
+  });
 })();

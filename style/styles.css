@@ -59,11 +59,26 @@ body {
   padding-bottom: 5px;
 }
 
-.create-player-btn {
+.x-create-player-btn,
+.o-create-player-btn {
   align-self: center;
   padding: 10px;
   border-radius: 20px;
   font-size: 15px;
+}
+
+.x-create-player-btn:disabled,
+.o-create-player-btn:disabled {
+  background-color: rgb(170, 170, 170);
+  color: rgb(77, 76, 76);
+}
+
+.input-error {
+  border-bottom: 3px solid rgba(255, 0, 0, 0.471);
+}
+
+.select-error {
+  color: rgba(255, 0, 0, 0.471);
 }
 
 .x-marks-container,
