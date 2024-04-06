@@ -176,6 +176,14 @@ const game = (function () {
 const displayController = (function () {
   const board = document.querySelector(".game-board");
   const cells = document.querySelectorAll(".cell");
+  const xMarksContainer = document.querySelector(".x-marks-container");
+  const oMarksContainer = document.querySelector(".o-marks-container");
+  const pXNameInput = document.querySelector(".x-name");
+  const pONameInput = document.querySelector(".o-name");
+  const selectXMarkHeader = document.querySelector(".x-select-mark-header");
+  const selectOMarkHeader = document.querySelector(".o-select-mark-header");
+  const createPlayerXBtn = document.querySelector(".x-create-player-btn");
+  const createPlayerOBtn = document.querySelector(".o-create-player-btn");
 
   const renderBoard = () => {
     cells.forEach((cell, index) => {
@@ -340,51 +348,39 @@ const displayController = (function () {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const xMarksContainer = document.querySelector(".x-marks-container");
-    const pXNameInput = document.querySelector(".x-name");
-    const selectXMarkHeader = document.querySelector(".x-select-mark-header");
-    const createPlayerXBtn = document.querySelector(".x-create-player-btn");
-
-    const oMarksContainer = document.querySelector(".o-marks-container");
-    const pONameInput = document.querySelector(".o-name");
-    const selectOMarkHeader = document.querySelector(".o-select-mark-header");
-    const createPlayerOBtn = document.querySelector(".o-create-player-btn");
-
-    function handleInputEvent(playerInput, selectedClass, createPlayerBtn) {
-      playerInput.addEventListener("input", function () {
-        const selectedMark = document.querySelector(selectedClass);
-        checkInput(playerInput);
-        enableCreatePlayerBtn(playerInput, selectedMark, createPlayerBtn);
-      });
-    }
-
-    handleInputEvent(pXNameInput, ".selected-x", createPlayerXBtn);
-    handleInputEvent(pONameInput, ".selected-o", createPlayerOBtn);
-
-    xMarksContainer.addEventListener("click", function () {
-      checkMarkSelection(
-        document.querySelector(".selected-x"),
-        selectXMarkHeader
-      );
-      enableCreatePlayerBtn(
-        pXNameInput,
-        document.querySelector(".selected-x"),
-        createPlayerXBtn
-      );
+  function handleInputEvent(playerInput, selectedClass, createPlayerBtn) {
+    playerInput.addEventListener("input", function () {
+      const selectedMark = document.querySelector(selectedClass);
+      checkInput(playerInput);
+      enableCreatePlayerBtn(playerInput, selectedMark, createPlayerBtn);
     });
+  }
 
-    oMarksContainer.addEventListener("click", function () {
-      const selectedOMark = document.querySelector(".selected-o");
-      checkMarkSelection(
-        document.querySelector(".selected-o"),
-        selectOMarkHeader
-      );
-      enableCreatePlayerBtn(
-        pONameInput,
-        document.querySelector(".selected-o"),
-        createPlayerOBtn
-      );
-    });
+  handleInputEvent(pXNameInput, ".selected-x", createPlayerXBtn);
+  handleInputEvent(pONameInput, ".selected-o", createPlayerOBtn);
+
+  xMarksContainer.addEventListener("click", function () {
+    checkMarkSelection(
+      document.querySelector(".selected-x"),
+      selectXMarkHeader
+    );
+    enableCreatePlayerBtn(
+      pXNameInput,
+      document.querySelector(".selected-x"),
+      createPlayerXBtn
+    );
+  });
+
+  oMarksContainer.addEventListener("click", function () {
+    const selectedOMark = document.querySelector(".selected-o");
+    checkMarkSelection(
+      document.querySelector(".selected-o"),
+      selectOMarkHeader
+    );
+    enableCreatePlayerBtn(
+      pONameInput,
+      document.querySelector(".selected-o"),
+      createPlayerOBtn
+    );
   });
 })();
