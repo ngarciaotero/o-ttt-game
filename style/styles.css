@@ -21,8 +21,8 @@ body {
   border-radius: 10px;
 }
 
-.player-xcard,
-.player-ocard {
+.create-x-card,
+.create-o-card {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -153,4 +153,50 @@ body {
 .selected-o {
   border-color: rgb(250, 250, 120);
   transition: transform 0.1s ease;
+}
+
+.player-x-card,
+.player-o-card {
+  display: none;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 300px;
+  padding: 20px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+.x-card-profile,
+.o-card-profile {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  border-radius: 100px;
+  border: 2px solid gray;
+  width: 100px;
+  height: 100px;
+}
+
+.x-card-img,
+.x-card-img:hover,
+.o-card-img,
+.o-card-img:hover {
+  align-self: center;
+  border-color: rgba(255, 255, 255, 0);
+}
+
+.x-card-name,
+.o-card-name {
+  align-self: center;
+}
+
+.x-turn,
+.o-turn {
+  display: none;
+}
+
+.x-stats,
+.o-stats {
+  align-self: center;
 }

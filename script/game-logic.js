@@ -383,4 +383,46 @@ const displayController = (function () {
       createPlayerOBtn
     );
   });
+
+  function createPlayerModule(playerLetter, nameInput) {
+    const playerCard = document.querySelector(`.player-${playerLetter}-card`);
+    const createPlayerCard = document.querySelector(
+      `.create-${playerLetter}-card`
+    );
+
+    const playerProfile = document.createElement("div");
+    playerProfile.classList.add(`${playerLetter}-card-profile`);
+    const profileImg = document.querySelector(`.selected-${playerLetter}`);
+    profileImg.classList.add(`${playerLetter}-card-img`);
+    playerProfile.appendChild(profileImg);
+
+    const playerName = document.createElement("div");
+    playerName.classList.add(`${playerLetter}-card-name`);
+    playerName.textContent = nameInput.value;
+
+    const playerTurn = document.createElement("div");
+    playerTurn.classList.add(`${playerLetter}-turn`);
+    playerTurn.textContent = "Your turn!";
+
+    const playerStats = document.createElement("div");
+    playerStats.classList.add(`${playerLetter}-stats`);
+    playerStats.textContent = "Rounds won: ";
+
+    playerCard.appendChild(playerProfile);
+    playerCard.appendChild(playerName);
+    playerCard.appendChild(playerStats);
+    playerCard.appendChild(playerTurn);
+
+    createPlayerCard.style.display = "none";
+    playerCard.style.display = "flex";
+  }
+
+  createPlayerXBtn.addEventListener("click", function () {
+    createPlayerModule("x", pXNameInput);
+    createPlayer("x");
+  });
+  createPlayerOBtn.addEventListener("click", function () {
+    createPlayerModule("o", pONameInput);
+    createPlayer("o");
+  });
 })();
