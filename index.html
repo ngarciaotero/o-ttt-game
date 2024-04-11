@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="layout-container">
+      <h6 class="game-title">TicTacToe</h6>
       <div class="create-x-card">
         <div class="profile-x-container"></div>
         <input
@@ -15,6 +16,7 @@
           id="p1name"
           class="x-name"
           placeholder="Enter Player Name"
+          maxlength="19"
         />
         <div>
           <h4 class="x-select-mark-header">Select Mark:</h4>
@@ -49,6 +51,7 @@
         <button class="o-create-player-btn" disabled>Create Player</button>
       </div>
       <div class="player-o-card"></div>
+      <button class="start-btn" disabled>Start Game</button>
     </div>
     <script src="script/game-logic.js"></script>
   </body>

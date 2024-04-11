@@ -16,33 +16,80 @@ body,
 }
 
 .layout-container {
-  display: flex;
-  align-self: center;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) minmax(300px, 430px) minmax(
+      100px,
+      1fr
+    );
+  grid-template-rows: minmax(60px, 140px) minmax(200px, 1fr) minmax(40px, 80px);
+  grid-template-areas: ". gameTitle . " "cardX gameBoard cardO " ". startBtn .";
+  justify-items: center;
+  background-image: url("/imgs/ui/game-display.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 95%;
+  padding-left: 70px;
+  padding-right: 70px;
 }
 
 .game-board {
   display: grid;
-  flex-grow: 2;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-area: gameBoard;
+  grid-template-columns: repeat(3, minmax(142px, 1fr));
   grid-template-rows: repeat(3, minmax(100px, 1fr));
+  padding-bottom: 40px;
 }
 
 .cell {
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 1px solid rgb(114, 211, 240);
+  background-color: rgb(15, 43, 78);
+  border-radius: 2px;
+}
+
+.game-title {
+  grid-area: gameTitle;
+  align-self: end;
+  margin-bottom: 35px;
+  color: rgb(114, 211, 240);
+  font-size: large;
 }
 
 .create-x-card,
 .create-o-card {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  flex-basis: 300px;
-  padding: 20px;
-  border: 2px solid gray;
+  background-image: url("/imgs/ui/deactive-card.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  padding-top: 35px;
+  padding-left: 70px;
+  padding-right: 70px;
+  justify-content: center;
+  gap: 23px;
+  width: 300px;
+  height: 540px;
+}
+
+.create-x-card {
+  grid-area: cardX;
+}
+
+.create-o-card {
+  grid-area: cardO;
+  justify-self: end;
+}
+
+.start-btn {
+  grid-area: startBtn;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 25px;
+  color: rgb(244, 244, 82);
+  padding: 0px 60px 0px 60px;
   border-radius: 10px;
-  gap: 20px;
+  border: none;
 }
 
 .profile-x-container,
@@ -51,52 +98,72 @@ body,
   justify-content: center;
   align-self: center;
   border-radius: 100px;
-  border: 2px solid gray;
   width: 100px;
   height: 100px;
+  background-image: url("/imgs/ui/profile-deactive.png");
+  background-position: center;
+  background-size: cover;
 }
 
 .x-profile-img,
 .o-profile-img {
   align-self: center;
-  max-width: 5%;
   max-width: 50%;
 }
 
 .o-name,
 .x-name {
   border: none;
-  border-bottom: 2px solid gray;
-  font-size: 20px;
-  padding-bottom: 5px;
+  border-bottom: 2px solid rgb(244, 244, 82);
+  background-color: rgba(240, 248, 255, 0);
+  font-size: 15px;
+  padding: 10px 0px 10px 5px;
+  color: rgb(244, 244, 82);
+}
+
+.x-name::placeholder,
+.o-name::placeholder {
+  color: rgb(181, 181, 181);
 }
 
 .x-create-player-btn,
 .o-create-player-btn {
   align-self: center;
-  padding: 10px;
+  font-size: 13px;
+  border: none;
+  padding: 25px 20px 25px 20px;
   border-radius: 20px;
-  font-size: 15px;
+  background-color: transparent;
+  color: rgb(244, 244, 82);
+  cursor: pointer;
 }
 
 .x-create-player-btn:disabled,
 .o-create-player-btn:disabled {
-  background-color: rgb(170, 170, 170);
-  color: rgb(77, 76, 76);
+  background-color: rgba(85, 85, 85, 0.66);
+  color: rgb(170, 170, 170);
 }
 
 .input-error {
-  border-bottom: 3px solid rgba(255, 0, 0, 0.471);
+  border-bottom: 3px solid rgb(255, 0, 0);
 }
 
 .select-error {
-  color: rgba(255, 0, 0, 0.471);
+  color: rgb(255, 0, 0);
+}
+
+.x-select-mark-header,
+.o-select-mark-header {
+  color: rgb(244, 244, 82);
+  margin: 5px;
 }
 
 .x-marks-container,
 .o-marks-container {
   display: grid;
   justify-items: center;
+  align-items: center;
+  background-color: rgba(0, 3, 30, 0.309);
 }
 
 .x-marks-container {
@@ -151,12 +218,13 @@ body,
   cursor: pointer;
   max-width: 60%;
   max-height: 60%;
-  border: 3px solid rgba(255, 255, 255, 0);
-  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 30px;
+  padding: 5px;
 }
 
 .mark-item:hover {
-  border-color: rgb(250, 250, 120);
+  border-color: rgb(244, 244, 82);
   transform: scale(1.2);
   transition: transform 0.1s ease;
 }
@@ -170,9 +238,6 @@ body,
 .player-x-card,
 .player-o-card {
   display: none;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-basis: 300px;
   padding: 20px;
   border: 2px solid gray;
   border-radius: 10px;
