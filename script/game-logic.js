@@ -184,6 +184,10 @@ const displayController = (function () {
   const selectOMarkHeader = document.querySelector(".o-select-mark-header");
   const createPlayerXBtn = document.querySelector(".x-create-player-btn");
   const createPlayerOBtn = document.querySelector(".o-create-player-btn");
+  const startGameBtn = document.querySelector(".start-btn");
+  const quitGameBtn = document.querySelector(".quit-btn");
+  let playerX;
+  let playerO;
 
   const renderBoard = () => {
     cells.forEach((cell, index) => {
@@ -419,10 +423,41 @@ const displayController = (function () {
 
   createPlayerXBtn.addEventListener("click", function () {
     createPlayerModule("x", pXNameInput);
-    createPlayer("x");
+    playerX = createPlayer("x");
+    enableStartBtn();
   });
+
   createPlayerOBtn.addEventListener("click", function () {
     createPlayerModule("o", pONameInput);
-    createPlayer("o");
+    playerO = createPlayer("o");
+    enableStartBtn();
+  });
+
+  function enableStartBtn() {
+    if (playerX && playerO) {
+      startGameBtn.style.color = "rgb(244, 244, 82)";
+      startGameBtn.style.backgroundColor = "transparent";
+    }
+  }
+
+  function addQuitBtn() {
+    const quitBtn = document.createElement("button");
+    quitBtn.textContent = "Quit";
+    quitBtn.classList.add("quit-btn");
+    gameLayout.appendChild(quitBtn);
+  }
+
+  startGameBtn.addEventListener("click", function () {
+    if (playerX && playerO) {
+      game.startGame(playerX, playerO);
+      startGameBtn.style.display = "none";
+      addQuitBtn();
+    } else {
+      alert("Please create both players before starting the game");
+    }
+  });
+
+  quitGameBtn.addEventListener("click", function () {
+    resetGame();
   });
 })();

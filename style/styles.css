@@ -6,6 +6,7 @@ body {
 
 body,
 .start-btn,
+.quit-btn,
 .o-name,
 .x-name,
 .x-create-player-btn,
@@ -22,7 +23,7 @@ body,
       1fr
     );
   grid-template-rows: minmax(60px, 140px) minmax(200px, 1fr) minmax(40px, 80px);
-  grid-template-areas: ". gameTitle . " "cardX gameBoard cardO " ". startBtn .";
+  grid-template-areas: ". gameTitle . " "cardX gameBoard cardO " ". gameBtn .";
   justify-items: center;
   background-image: url("/imgs/ui/game-display.png");
   background-position: center;
@@ -82,13 +83,13 @@ body,
 }
 
 .start-btn {
-  grid-area: startBtn;
+  grid-area: gameBtn;
   cursor: pointer;
-  background-color: transparent;
+  background-color: rgba(85, 85, 85, 0.66);
+  color: rgb(170, 170, 170);
   font-size: 25px;
-  color: rgb(244, 244, 82);
-  padding: 0px 60px 0px 60px;
-  border-radius: 10px;
+  padding: 0px 38px 0px 38px;
+  border-radius: 20px;
   border: none;
 }
 
@@ -297,4 +298,16 @@ body,
 .x-stats,
 .o-stats {
   align-self: center;
+}
+
+.quit-btn {
+  grid-area: gameBtn;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(170, 170, 170);
+  font-size: 25px;
+  color: rgb(244, 244, 82);
+  padding: 0px 38px 0px 38px;
+  border-radius: 20px;
+  border: none;
 }
