@@ -1,6 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 body {
-  display: flex;
-  height: 100vh;
+  background-color: rgb(21, 32, 44);
+}
+
+body,
+.start-btn,
+.o-name,
+.x-name,
+.x-create-player-btn,
+.o-create-player-btn {
+  font-family: "Press Start 2P", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .layout-container {
