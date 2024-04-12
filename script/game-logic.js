@@ -100,8 +100,8 @@ const game = (function () {
     player2 = p2;
     initializeBoard();
     currentPlayer = player1;
-    displayController.displayTurnText(currentPlayer.getMark());
-    displayController.hideTurnText(
+    displayController.displayTurn(currentPlayer.getMark());
+    displayController.hideTurn(
       currentPlayer === player1 ? player2.getMark() : player1.getMark()
     );
   };
@@ -135,8 +135,8 @@ const game = (function () {
 
   const switchPlayer = () => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
-    displayController.displayTurnText(currentPlayer.getMark());
-    displayController.hideTurnText(
+    displayController.displayTurn(currentPlayer.getMark());
+    displayController.hideTurn(
       currentPlayer === player1 ? player2.getMark() : player1.getMark()
     );
   };
@@ -428,25 +428,30 @@ const displayController = (function () {
     createPlayerCard.style.display = "none";
     playerCard.style.display = "flex";
   }
-
-  const displayTurnText = (playerLetter) => {
+  const toggleTurnVisibility = (playerLetter, isVisible) => {
     const turnText = document.querySelector(`.${playerLetter}-turn-text`);
     const turnProfile = document.querySelector(`.${playerLetter}-card-profile`);
     const turnCard = document.querySelector(`.player-${playerLetter}-card`);
-
-    turnText.classList.add("active-turn-text");
-    turnProfile.classList.add("active-turn-profile");
-    turnCard.classList.add("active-turn-card");
+    turnText.classList.toggle("active-turn-text", isVisible);
+    turnProfile.classList.toggle("active-turn-profile", isVisible);
+    turnCard.classList.toggle("active-turn-card", isVisible);
   };
 
-  const hideTurnText = (playerLetter) => {
-    const turnText = document.querySelector(`.${playerLetter}-turn-text`);
-    const turnProfile = document.querySelector(`.${playerLetter}-card-profile`);
-    const turnCard = document.querySelector(`.player-${playerLetter}-card`);
+  const toggleOtherPlayerVisibility = (playerLetter, isVisible) => {
+    const otherPlayerCard = document.querySelector(
+      `.player-${playerLetter === "x" ? "o" : "x"}-card`
+    );
+    otherPlayerCard.classList.toggle("hidden", !isVisible);
+  };
 
-    turnText.classList.remove("active-turn-text");
-    turnProfile.classList.remove("active-turn-profile");
-    turnCard.classList.remove("active-turn-card");
+  const displayTurn = (playerLetter) => {
+    toggleTurnVisibility(playerLetter, true);
+    toggleOtherPlayerVisibility(playerLetter, false);
+  };
+
+  const hideTurn = (playerLetter) => {
+    toggleTurnVisibility(playerLetter, false);
+    toggleOtherPlayerVisibility(playerLetter, true);
   };
 
   createPlayerXBtn.addEventListener("click", function () {
@@ -484,7 +489,7 @@ const displayController = (function () {
       alert("Please create both players before starting the game");
     }
   });
-  return { displayTurnText, hideTurnText };
+  return { displayTurn, hideTurn };
 
   quitGameBtn.addEventListener("click", function () {
     resetGame();
