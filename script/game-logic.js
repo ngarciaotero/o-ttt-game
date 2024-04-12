@@ -474,17 +474,38 @@ const displayController = (function () {
   }
 
   function addQuitBtn() {
+    startGameBtn.style.display = "none";
     const quitBtn = document.createElement("button");
     quitBtn.textContent = "Quit";
     quitBtn.classList.add("quit-btn");
     gameLayout.appendChild(quitBtn);
   }
 
+  const boardVisible = () => {
+    cells.forEach((cell) => {
+      cell.style.display = "grid";
+    });
+
+    board.removeChild(document.querySelector(".board-lock-overlay"));
+  };
+
+  const hideBoard = () => {
+    const lockImg = document.createElement("img");
+    lockImg.src = "/imgs/ui/lock.png";
+    lockImg.alt = "lock icon";
+    lockImg.classList.add("board-lock-overlay");
+    board.appendChild(lockImg);
+  };
+
+  window.addEventListener("load", function () {
+    hideBoard();
+  });
+
   startGameBtn.addEventListener("click", function () {
     if (playerX && playerO) {
       game.startGame(playerX, playerO);
-      startGameBtn.style.display = "none";
       addQuitBtn();
+      boardVisible();
     } else {
       alert("Please create both players before starting the game");
     }
