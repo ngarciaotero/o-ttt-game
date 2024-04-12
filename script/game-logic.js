@@ -100,6 +100,10 @@ const game = (function () {
     player2 = p2;
     initializeBoard();
     currentPlayer = player1;
+    displayController.displayTurnText(currentPlayer.getMark());
+    displayController.hideTurnText(
+      currentPlayer === player1 ? player2.getMark() : player1.getMark()
+    );
   };
 
   const resetGame = () => {
@@ -131,6 +135,10 @@ const game = (function () {
 
   const switchPlayer = () => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
+    displayController.displayTurnText(currentPlayer.getMark());
+    displayController.hideTurnText(
+      currentPlayer === player1 ? player2.getMark() : player1.getMark()
+    );
   };
 
   const increaseTurnCount = () => {
@@ -405,7 +413,7 @@ const displayController = (function () {
     playerName.textContent = nameInput.value;
 
     const playerTurn = document.createElement("div");
-    playerTurn.classList.add(`${playerLetter}-turn`);
+    playerTurn.classList.add(`${playerLetter}-turn-text`);
     playerTurn.textContent = "Your turn!";
 
     const playerStats = document.createElement("div");
@@ -420,6 +428,26 @@ const displayController = (function () {
     createPlayerCard.style.display = "none";
     playerCard.style.display = "flex";
   }
+
+  const displayTurnText = (playerLetter) => {
+    const turnText = document.querySelector(`.${playerLetter}-turn-text`);
+    const turnProfile = document.querySelector(`.${playerLetter}-card-profile`);
+    const turnCard = document.querySelector(`.player-${playerLetter}-card`);
+
+    turnText.classList.add("active-turn-text");
+    turnProfile.classList.add("active-turn-profile");
+    turnCard.classList.add("active-turn-card");
+  };
+
+  const hideTurnText = (playerLetter) => {
+    const turnText = document.querySelector(`.${playerLetter}-turn-text`);
+    const turnProfile = document.querySelector(`.${playerLetter}-card-profile`);
+    const turnCard = document.querySelector(`.player-${playerLetter}-card`);
+
+    turnText.classList.remove("active-turn-text");
+    turnProfile.classList.remove("active-turn-profile");
+    turnCard.classList.remove("active-turn-card");
+  };
 
   createPlayerXBtn.addEventListener("click", function () {
     createPlayerModule("x", pXNameInput);
@@ -456,6 +484,7 @@ const displayController = (function () {
       alert("Please create both players before starting the game");
     }
   });
+  return { displayTurnText, hideTurnText };
 
   quitGameBtn.addEventListener("click", function () {
     resetGame();

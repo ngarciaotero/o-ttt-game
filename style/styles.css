@@ -242,7 +242,7 @@ body,
   background-image: url("/imgs/ui/deactive-card.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 92% 100%;
   padding-left: 70px;
   padding-right: 70px;
   justify-content: center;
@@ -260,6 +260,7 @@ body,
 
 .player-o-card {
   grid-area: cardO;
+  justify-self: end;
 }
 
 .x-card-profile,
@@ -310,4 +311,17 @@ body,
   padding: 0px 38px 0px 38px;
   border-radius: 20px;
   border: none;
+}
+
+.active-turn-text {
+  color: rgb(244, 244, 82);
+}
+
+.active-turn-profile {
+  background-image: url("/imgs/ui/profile-active.png");
+}
+
+.active-turn-card {
+  background-image: url("/imgs/ui/active-card.png");
+  background-size: 100% 100%;
 }
