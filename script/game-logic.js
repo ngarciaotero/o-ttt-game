@@ -92,6 +92,8 @@ const game = (function () {
   let board;
   let turn = 0;
   let player1, player2;
+  let player1Wins = 0;
+  let player2Wins = 0;
   let player1Moves = [];
   let player2Moves = [];
 
@@ -153,6 +155,14 @@ const game = (function () {
     return player === player1 ? player1Moves : player2Moves;
   };
 
+  const incrementWins = (player) => {
+    player === player1 ? player1Wins++ : player2Wins++;
+    displayController.displayRoundsWon(
+      player.getMark(),
+      player === player1 ? player1Wins : player2Wins
+    );
+  };
+
   const tieExists = () => {
     return turn === 9;
   };
@@ -173,7 +183,10 @@ const game = (function () {
           break;
         }
       }
-      if (isWinner) return true;
+      if (isWinner) {
+        incrementWins(currentPlayer);
+        return true;
+      }
     }
     return false;
   };
@@ -418,7 +431,7 @@ const displayController = (function () {
 
     const playerStats = document.createElement("div");
     playerStats.classList.add(`${playerLetter}-stats`);
-    playerStats.textContent = "Rounds won: ";
+    playerStats.textContent = "Rounds won: 0";
 
     playerCard.appendChild(playerProfile);
     playerCard.appendChild(playerName);
@@ -452,6 +465,11 @@ const displayController = (function () {
   const hideTurn = (playerLetter) => {
     toggleTurnVisibility(playerLetter, false);
     toggleOtherPlayerVisibility(playerLetter, true);
+  };
+
+  const displayRoundsWon = (playerLetter, winCount) => {
+    const playerStats = document.querySelector(`.${playerLetter}-stats`);
+    playerStats.textContent = `Rounds won: ${winCount}`;
   };
 
   createPlayerXBtn.addEventListener("click", function () {
@@ -510,7 +528,7 @@ const displayController = (function () {
       alert("Please create both players before starting the game");
     }
   });
-  return { displayTurn, hideTurn };
+  return { displayTurn, hideTurn, displayRoundsWon };
 
   quitGameBtn.addEventListener("click", function () {
     resetGame();
