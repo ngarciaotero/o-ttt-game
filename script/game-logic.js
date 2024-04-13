@@ -109,10 +109,11 @@ const game = (function () {
   };
 
   const resetGame = () => {
-    board.resetGameBoard();
     turn = 0;
     player1Moves = [];
     player2Moves = [];
+    board.resetGameBoard();
+    displayController.clearBoard();
   };
 
   const makeMove = (row, column) => {
@@ -121,9 +122,15 @@ const game = (function () {
       addPlayerMove(getPlayerMoves(currentPlayer), row, column);
       increaseTurnCount();
       if (winnerExists(getPlayerMoves(currentPlayer))) {
-        resetGame();
+        displayController.renderBoard();
+        setTimeout(() => {
+          resetGame();
+        }, 1000);
       } else if (tieExists()) {
-        resetGame();
+        displayController.renderBoard();
+        setTimeout(() => {
+          resetGame();
+        }, 1000);
       } else {
         switchPlayer();
       }
@@ -212,8 +219,21 @@ const displayController = (function () {
 
   const renderBoard = () => {
     cells.forEach((cell, index) => {
-      cell.textContent =
+      const player =
         gameBoard.getGameBoard()[getRowIndex(index)][getColumnIndex(index)];
+      if (player === "x" || player === "o") {
+        const selectedPlayerMark = document
+          .querySelector(`.selected-${player}`)
+          .cloneNode(true);
+        cell.innerHTML = "";
+        cell.appendChild(selectedPlayerMark);
+      }
+    });
+  };
+
+  const clearBoard = () => {
+    cells.forEach((cell) => {
+      cell.innerHTML = "";
     });
   };
 
@@ -528,7 +548,7 @@ const displayController = (function () {
       alert("Please create both players before starting the game");
     }
   });
-  return { displayTurn, hideTurn, displayRoundsWon };
+  return { displayTurn, hideTurn, displayRoundsWon, clearBoard, renderBoard };
 
   quitGameBtn.addEventListener("click", function () {
     resetGame();
