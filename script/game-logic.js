@@ -116,6 +116,12 @@ const game = (function () {
     displayController.clearBoard();
   };
 
+  const quitGame = () => {
+    resetGame();
+    player1Wins = 0;
+    player2Wins = 0;
+  };
+
   const makeMove = (row, column) => {
     const success = board.setCell(row, column, currentPlayer.getMark());
     if (success) {
@@ -198,7 +204,7 @@ const game = (function () {
     return false;
   };
 
-  return { startGame, makeMove };
+  return { startGame, makeMove, quitGame };
 })();
 
 const displayController = (function () {
@@ -213,7 +219,6 @@ const displayController = (function () {
   const createPlayerXBtn = document.querySelector(".x-create-player-btn");
   const createPlayerOBtn = document.querySelector(".o-create-player-btn");
   const startGameBtn = document.querySelector(".start-btn");
-  const quitGameBtn = document.querySelector(".quit-btn");
   let playerX;
   let playerO;
 
@@ -516,6 +521,12 @@ const displayController = (function () {
     const quitBtn = document.createElement("button");
     quitBtn.textContent = "Quit";
     quitBtn.classList.add("quit-btn");
+
+    quitBtn.addEventListener("click", function () {
+      game.quitGame();
+      resetDefaultDisplay();
+    });
+
     gameLayout.appendChild(quitBtn);
   }
 
@@ -548,9 +559,55 @@ const displayController = (function () {
       alert("Please create both players before starting the game");
     }
   });
-  return { displayTurn, hideTurn, displayRoundsWon, clearBoard, renderBoard };
 
-  quitGameBtn.addEventListener("click", function () {
-    resetGame();
-  });
+  const resetDefaultDisplay = () => {
+    const playerXCard = document.querySelector(`.player-x-card`);
+    const playerOCard = document.querySelector(`.player-o-card`);
+
+    const createPlayerXCard = document.querySelector(`.create-x-card`);
+    const createPlayerOCard = document.querySelector(`.create-o-card`);
+
+    const profileXImg = document.querySelector(".profile-x-container");
+    const profileOImg = document.querySelector(".profile-o-container");
+
+    profileXImg.innerHTML = "";
+    profileOImg.innerHTML = "";
+
+    pXNameInput.value = "";
+    pONameInput.value = "";
+
+    addMarkOptions(
+      xMarkOptions,
+      xMarksContainer,
+      ".profile-x-container",
+      "selected-x",
+      "x-profile-img"
+    );
+    addMarkOptions(
+      oMarkOptions,
+      oMarksContainer,
+      ".profile-o-container",
+      "selected-o",
+      "o-profile-img"
+    );
+
+    cells.forEach((cell) => {
+      cell.style.display = "none";
+    });
+    hideBoard();
+    playerXCard.innerHTML = "";
+    playerOCard.innerHTML = "";
+    playerXCard.style.display = "none";
+    playerOCard.style.display = "none";
+    createPlayerXCard.style.display = "flex";
+    createPlayerOCard.style.display = "flex";
+
+    createPlayerXBtn.setAttribute("disabled", true);
+    createPlayerOBtn.setAttribute("disabled", true);
+
+    startGameBtn.style.display = "block";
+    gameLayout.removeChild(document.querySelector(".quit-btn"));
+  };
+
+  return { displayTurn, hideTurn, displayRoundsWon, clearBoard, renderBoard };
 })();
