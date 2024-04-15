@@ -540,7 +540,7 @@ const displayController = (function () {
 
   const hideBoard = () => {
     const lockImg = document.createElement("img");
-    lockImg.src = "/imgs/ui/lock.png";
+    lockImg.src = "imgs/ui/lock.png";
     lockImg.alt = "lock icon";
     lockImg.classList.add("board-lock-overlay");
     board.appendChild(lockImg);
