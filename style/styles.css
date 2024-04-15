@@ -25,7 +25,7 @@ body,
   grid-template-rows: minmax(60px, 140px) minmax(200px, 1fr) minmax(40px, 80px);
   grid-template-areas: ". gameTitle . " "cardX gameBoard cardO " ". gameBtn .";
   justify-items: center;
-  background-image: url("/imgs/ui/game-display.png");
+  background-image: url("../imgs/ui/game-display.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -74,7 +74,7 @@ body,
 .create-o-card {
   display: flex;
   flex-direction: column;
-  background-image: url("/imgs/ui/deactive-card.png");
+  background-image: url("../imgs/ui/deactive-card.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 92% 100%;
@@ -114,7 +114,7 @@ body,
   align-self: center;
   width: 100px;
   height: 100px;
-  background-image: url("/imgs/ui/profile-deactive.png");
+  background-image: url("../imgs/ui/profile-deactive.png");
   background-position: center;
   background-size: cover;
 }
@@ -253,7 +253,7 @@ body,
 .player-o-card {
   display: none;
   flex-direction: column;
-  background-image: url("/imgs/ui/deactive-card.png");
+  background-image: url("../imgs/ui/deactive-card.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 92% 100%;
@@ -281,7 +281,7 @@ body,
 .o-card-profile {
   display: flex;
   justify-content: center;
-  background-image: url("/imgs/ui/profile-deactive.png");
+  background-image: url("../imgs/ui/profile-deactive.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -332,11 +332,11 @@ body,
 }
 
 .active-turn-profile {
-  background-image: url("/imgs/ui/profile-active.png");
+  background-image: url("../imgs/ui/profile-active.png");
 }
 
 .active-turn-card {
-  background-image: url("/imgs/ui/active-card.png");
+  background-image: url("../imgs/ui/active-card.png");
   background-size: 100% 100%;
 }
 
