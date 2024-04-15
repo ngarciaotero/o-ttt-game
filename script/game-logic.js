@@ -209,6 +209,7 @@ const game = (function () {
 
 const displayController = (function () {
   const board = document.querySelector(".game-board");
+  const gameLayout = document.querySelector(".layout-container");
   const cells = document.querySelectorAll(".cell");
   const xMarksContainer = document.querySelector(".x-marks-container");
   const oMarksContainer = document.querySelector(".o-marks-container");
@@ -262,12 +263,11 @@ const displayController = (function () {
 
   function addMarkOptions(
     markOptions,
-    markContainerSelector,
+    markContainer,
     profileContainerSelector,
     selectedClass,
     profileImgClass
   ) {
-    const marksContainer = document.querySelector(markContainerSelector);
     const profileContainer = document.querySelector(profileContainerSelector);
     markOptions.forEach((mark) => {
       const img = createImg(mark);
@@ -275,7 +275,7 @@ const displayController = (function () {
         addSelectedClass(img, selectedClass);
         addMarkToProfile(mark.imgSrc, profileContainer, profileImgClass);
       });
-      marksContainer.appendChild(img);
+      markContainer.appendChild(img);
     });
   }
 
@@ -355,14 +355,14 @@ const displayController = (function () {
   window.addEventListener("load", function () {
     addMarkOptions(
       xMarkOptions,
-      ".x-marks-container",
+      xMarksContainer,
       ".profile-x-container",
       "selected-x",
       "x-profile-img"
     );
     addMarkOptions(
       oMarkOptions,
-      ".o-marks-container",
+      oMarksContainer,
       ".profile-o-container",
       "selected-o",
       "o-profile-img"
@@ -479,7 +479,7 @@ const displayController = (function () {
     const otherPlayerCard = document.querySelector(
       `.player-${playerLetter === "x" ? "o" : "x"}-card`
     );
-    otherPlayerCard.classList.toggle("hidden", !isVisible);
+    otherPlayerCard.classList.toggle("card-overlay", !isVisible);
   };
 
   const displayTurn = (playerLetter) => {

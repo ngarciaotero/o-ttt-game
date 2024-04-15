@@ -77,7 +77,7 @@ body,
   background-image: url("/imgs/ui/deactive-card.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 92% 100%;
   padding-top: 35px;
   padding-left: 70px;
   padding-right: 70px;
@@ -145,7 +145,7 @@ body,
   align-self: center;
   font-size: 13px;
   border: none;
-  padding: 25px 20px 25px 20px;
+  padding: 25px 15px 25px 15px;
   border-radius: 20px;
   background-color: transparent;
   color: rgb(244, 244, 82);
@@ -340,6 +340,6 @@ body,
   background-size: 100% 100%;
 }
 
-.hidden {
+.card-overlay {
   opacity: 0.3;
 }
