@@ -65,7 +65,7 @@ body,
 .game-title {
   grid-area: gameTitle;
   align-self: end;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
   color: rgb(114, 211, 240);
   font-size: large;
 }
